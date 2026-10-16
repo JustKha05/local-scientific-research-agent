@@ -1,0 +1,64 @@
+{
+  "recorded_at": "2026-10-16T15:36:56.212530+00:00",
+  "sources": [
+    {
+      "dataset": "qasper",
+      "source_url": "https://qasper-dataset.s3.us-west-2.amazonaws.com/qasper-train-dev-v0.3.tgz",
+      "archive": "data\\raw\\qasper\\qasper-train-dev-v0.3.tgz",
+      "archive_sha256": "a28fdf966db827bcee3d873107d6b6669864fb7ca8fbf73a192f5e39191bdb5a",
+      "files": [
+        {
+          "path": "data\\raw\\qasper\\qasper-train-v0.3.json",
+          "sha256": "9458bfe76074a8fa8d1685af02bcc73537aa6d338ad20591dfaff1946bc88bf4",
+          "bytes": 31969387
+        },
+        {
+          "path": "data\\raw\\qasper\\qasper-dev-v0.3.json",
+          "sha256": "2ae7ee62a65b1c4225791c70de80c2aad4e8998cf1fd4f09a53103db4f21af93",
+          "bytes": 11398686
+        }
+      ]
+    },
+    {
+      "dataset": "qasper",
+      "source_url": "https://qasper-dataset.s3.us-west-2.amazonaws.com/qasper-test-and-evaluator-v0.3.tgz",
+      "archive": "data\\raw\\qasper\\qasper-test-and-evaluator-v0.3.tgz",
+      "archive_sha256": "72a52a41193e2838b8074f80ac074b94f956b84886c36a61c58a7df4171bdd72",
+      "files": [
+        {
+          "path": "data\\raw\\qasper\\qasper-test-v0.3.json",
+          "sha256": "6e29ad410e6e39aa1936017fb965b30a20eb2e7751997f55b97c9d281aa884e5",
+          "bytes": 18078957
+        }
+      ]
+    },
+    {
+      "dataset": "scifact",
+      "source_url": "https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz",
+      "archive": "data\\raw\\scifact\\data.tar.gz",
+      "archive_sha256": "11c621288d41ac144d29b13b0f8503b3820b7d6e8b1f6ff24dff335c196d76be",
+      "files": [
+        {
+          "path": "data\\raw\\scifact\\corpus.jsonl",
+          "sha256": "b8d6c89624cb2ed74dee8938effc4f5d8bd2086887880af8110d64be4ceade62",
+          "bytes": 8307875
+        },
+        {
+          "path": "data\\raw\\scifact\\claims_train.jsonl",
+          "sha256": "f4c8fa82d8bd0653a9cc8d61a6ea48c25eacea64e90af5dbf390ebb1b74372f0",
+          "bytes": 175616
+        },
+        {
+          "path": "data\\raw\\scifact\\claims_dev.jsonl",
+          "sha256": "86f0435d08fdb65d1aa41d1472684f57e6e71930626497bdf4d7a9ec1a632217",
+          "bytes": 65007
+        },
+        {
+          "path": "data\\raw\\scifact\\claims_test.jsonl",
+          "sha256": "558930d75215c73f84a28fe538307d6d397c9de1ec7239514cf45f80d75d2ca3",
+          "bytes": 33769
+        }
+      ]
+    }
+  ]
+}
