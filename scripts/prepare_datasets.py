@@ -1,7 +1,7 @@
 import json
 from collections import defaultdict
 from pathlib import Path
-
+import unicodedata
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw"
@@ -42,10 +42,35 @@ def prepare_qasper(split):
 
     for paper_id, paper in papers.items():
         paper_ref = f"qasper:{paper_id}"
-        paragraph_lookup = defaultdict(list)
+        exact_lookup = defaultdict(list)
+        normalized_lookup = defaultdict(list)
 
-        # Keep original paragraph text and source coordinates.
         for section_index, section in enumerate(paper["full_text"]):
+            section_name = section.get("section_name")
+
+            # Section titles can also be annotated as evidence.
+            if isinstance(section_name, str) and section_name.strip():
+                evidence_id = f"{paper_ref}:s{section_index}:title"
+
+                documents.append({
+                    "evidence_id": evidence_id,
+                    "dataset": "qasper",
+                    "split": split,
+                    "paper_id": paper_ref,
+                    "source_paper_id": paper_id,
+                    "title": paper["title"],
+                    "unit_type": "section_title",
+                    "section_name": section_name,
+                    "section_index": section_index,
+                    "paragraph_index": None,
+                    "text": section_name,
+                })
+
+                exact_lookup[section_name].append(evidence_id)
+                normalized_lookup[
+                    normalize_for_matching(section_name)
+                ].append(evidence_id)
+
             for paragraph_index, text in enumerate(section["paragraphs"]):
                 if not text.strip():
                     continue
@@ -61,13 +86,17 @@ def prepare_qasper(split):
                     "paper_id": paper_ref,
                     "source_paper_id": paper_id,
                     "title": paper["title"],
-                    "section_name": section["section_name"],
+                    "unit_type": "paragraph",
+                    "section_name": section_name,
                     "section_index": section_index,
                     "paragraph_index": paragraph_index,
                     "text": text,
                 })
 
-                paragraph_lookup[text].append(evidence_id)
+                exact_lookup[text].append(evidence_id)
+                normalized_lookup[
+                    normalize_for_matching(text)
+                ].append(evidence_id)
 
         for qa in paper["qas"]:
             query_id = f"qasper:{qa['question_id']}"
@@ -93,8 +122,19 @@ def prepare_qasper(split):
                     if evidence_text.startswith("FLOAT SELECTED"):
                         non_text.append(evidence_text)
                         figure_table_count += 1
-                    elif evidence_text in paragraph_lookup:
-                        mapped_ids.update(paragraph_lookup[evidence_text])
+                        continue
+
+                    # Prefer exact matching.
+                    matched_ids = exact_lookup.get(evidence_text)
+
+                    # Fall back only to whitespace/Unicode normalization.
+                    if not matched_ids:
+                        matched_ids = normalized_lookup.get(
+                            normalize_for_matching(evidence_text)
+                        )
+
+                    if matched_ids:
+                        mapped_ids.update(matched_ids)
                     else:
                         unmatched.append(evidence_text)
                         unmatched_count += 1
@@ -126,6 +166,10 @@ def prepare_qasper(split):
         f"figure/table evidence={figure_table_count}"
     )
 
+def normalize_for_matching(text):
+    return " ".join(
+        unicodedata.normalize("NFC", text).split()
+    )
 
 def prepare_scifact():
     directory = RAW / "scifact"
