@@ -44,7 +44,29 @@ def prepare_qasper(split):
         paper_ref = f"qasper:{paper_id}"
         exact_lookup = defaultdict(list)
         normalized_lookup = defaultdict(list)
+        abstract = paper.get("abstract")
 
+        if isinstance(abstract, str) and abstract.strip():
+            evidence_id = f"{paper_ref}:abstract"
+
+            documents.append({
+                "evidence_id": evidence_id,
+                "dataset": "qasper",
+                "split": split,
+                "paper_id": paper_ref,
+                "source_paper_id": paper_id,
+                "title": paper["title"],
+                "unit_type": "abstract",
+                "section_name": "Abstract",
+                "section_index": None,
+                "paragraph_index": None,
+                "text": abstract,
+            })
+
+            exact_lookup[abstract].append(evidence_id)
+            normalized_lookup[
+                normalize_for_matching(abstract)
+            ].append(evidence_id)
         for section_index, section in enumerate(paper["full_text"]):
             section_name = section.get("section_name")
 
@@ -101,6 +123,12 @@ def prepare_qasper(split):
         for qa in paper["qas"]:
             query_id = f"qasper:{qa['question_id']}"
 
+            has_full_text = any(
+                paragraph.strip()
+                for section in paper["full_text"]
+                for paragraph in section["paragraphs"]
+            )
+
             queries.append({
                 "query_id": query_id,
                 "dataset": "qasper",
@@ -108,6 +136,10 @@ def prepare_qasper(split):
                 "mode": "paper_qa",
                 "paper_id": paper_ref,
                 "text": qa["question"],
+                "has_full_text": has_full_text,
+                "has_abstract": bool(
+                    isinstance(abstract, str) and abstract.strip()
+                ),
             })
 
             annotations = []
