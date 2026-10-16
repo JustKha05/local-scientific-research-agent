@@ -1,0 +1,22 @@
+@'
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Secrets
+.env
+.env.*
+
+# Local data and generated outputs
+data/
+evaluation/reports/
+logs/
+models/
+
+# Editor and OS
+.vscode/
+.DS_Store
+Thumbs.db
+'@ | Set-Content -Path .gitignore -Encoding utf8

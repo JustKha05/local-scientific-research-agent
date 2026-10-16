@@ -1,0 +1,8 @@
+{
+  "ollama_base_url": "http://127.0.0.1:11434",
+  "model": "phi4-mini:3.8b",
+  "timeout_seconds": 600,
+  "num_ctx": 2048,
+  "num_predict": 128,
+  "temperature": 0
+}
