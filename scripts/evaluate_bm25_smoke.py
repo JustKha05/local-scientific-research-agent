@@ -271,6 +271,28 @@ def evaluate(dataset):
 
 
 def main():
+    global REPORTS
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--report-dir",
+        default="evaluation/reports/bm25_smoke",
+        help="Directory containing retrieval reports.",
+    )
+    args = parser.parse_args()
+
+    report_dir = Path(args.report_dir)
+
+    if not report_dir.is_absolute():
+        report_dir = ROOT / report_dir
+
+    REPORTS = report_dir.resolve()
+
+    if not REPORTS.is_dir():
+        raise FileNotFoundError(
+            f"Report directory does not exist: {REPORTS}"
+        )
+
     evaluate("qasper")
     evaluate("scifact")
 
