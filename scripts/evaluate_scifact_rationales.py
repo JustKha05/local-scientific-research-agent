@@ -1,7 +1,7 @@
 import hashlib
 import json
 from pathlib import Path
-
+import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "evaluation" / "reports" / "bm25_smoke"
@@ -34,6 +34,27 @@ def file_hash(path):
 
 
 def main():
+    global REPORTS
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--report-dir",
+        default="evaluation/reports/bm25_smoke",
+        help="Directory containing retrieval reports.",
+    )
+    args = parser.parse_args()
+
+    report_dir = Path(args.report_dir)
+
+    if not report_dir.is_absolute():
+        report_dir = ROOT / report_dir
+
+    REPORTS = report_dir.resolve()
+
+    if not REPORTS.is_dir():
+        raise FileNotFoundError(
+            f"Report directory does not exist: {REPORTS}"
+        )
     retrieval_path = REPORTS / "scifact_retrieval.json"
     gold_path = DATA / "train" / "gold.jsonl"
 
