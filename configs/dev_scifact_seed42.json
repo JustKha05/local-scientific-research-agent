@@ -1,0 +1,1528 @@
+{
+  "schema_version": 1,
+  "dataset": "scifact",
+  "split": "dev",
+  "seed": 42,
+  "ratios": [
+    0.4,
+    0.2,
+    0.4
+  ],
+  "queries_sha256": "13eeb7b9b2637126ffe77ff720fae30fc3a89e7ef06924b3ed88cf0099265227",
+  "assignments": [
+    {
+      "query_id": "scifact:1",
+      "group_id": "scifact:1",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:100",
+      "group_id": "scifact:100",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1012",
+      "group_id": "scifact:1012",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1014",
+      "group_id": "scifact:1014",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1019",
+      "group_id": "scifact:1019",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1020",
+      "group_id": "scifact:1020",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1021",
+      "group_id": "scifact:1021",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1024",
+      "group_id": "scifact:1024",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1029",
+      "group_id": "scifact:1029",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1041",
+      "group_id": "scifact:1041",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1049",
+      "group_id": "scifact:1049",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1062",
+      "group_id": "scifact:1062",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1086",
+      "group_id": "scifact:1086",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1088",
+      "group_id": "scifact:1088",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1089",
+      "group_id": "scifact:1089",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1099",
+      "group_id": "scifact:1099",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1100",
+      "group_id": "scifact:1100",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1104",
+      "group_id": "scifact:1104",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1107",
+      "group_id": "scifact:1107",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1110",
+      "group_id": "scifact:1110",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1121",
+      "group_id": "scifact:1121",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:113",
+      "group_id": "scifact:113",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1130",
+      "group_id": "scifact:1130",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1132",
+      "group_id": "scifact:1132",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1137",
+      "group_id": "scifact:1137",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1140",
+      "group_id": "scifact:1140",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1144",
+      "group_id": "scifact:1144",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1146",
+      "group_id": "scifact:1146",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:115",
+      "group_id": "scifact:115",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1150",
+      "group_id": "scifact:1150",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1163",
+      "group_id": "scifact:1163",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1175",
+      "group_id": "scifact:1175",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1179",
+      "group_id": "scifact:1179",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:118",
+      "group_id": "scifact:118",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1180",
+      "group_id": "scifact:1180",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1185",
+      "group_id": "scifact:1185",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1187",
+      "group_id": "scifact:1187",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1191",
+      "group_id": "scifact:1191",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1194",
+      "group_id": "scifact:1194",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1196",
+      "group_id": "scifact:1196",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1197",
+      "group_id": "scifact:1197",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1199",
+      "group_id": "scifact:1199",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1200",
+      "group_id": "scifact:1200",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1202",
+      "group_id": "scifact:1202",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1204",
+      "group_id": "scifact:1204",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1207",
+      "group_id": "scifact:1207",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1213",
+      "group_id": "scifact:1213",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1216",
+      "group_id": "scifact:1216",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1221",
+      "group_id": "scifact:1221",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1225",
+      "group_id": "scifact:1225",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1226",
+      "group_id": "scifact:1226",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1232",
+      "group_id": "scifact:1232",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:124",
+      "group_id": "scifact:124",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1241",
+      "group_id": "scifact:1241",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1245",
+      "group_id": "scifact:1245",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1259",
+      "group_id": "scifact:1259",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1262",
+      "group_id": "scifact:1262",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1266",
+      "group_id": "scifact:1266",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:127",
+      "group_id": "scifact:127",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1270",
+      "group_id": "scifact:1270",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1271",
+      "group_id": "scifact:1271",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1272",
+      "group_id": "scifact:1272",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1273",
+      "group_id": "scifact:1273",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1274",
+      "group_id": "scifact:1274",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1278",
+      "group_id": "scifact:1278",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1279",
+      "group_id": "scifact:1279",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:128",
+      "group_id": "scifact:128",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1280",
+      "group_id": "scifact:1280",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1281",
+      "group_id": "scifact:1281",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1282",
+      "group_id": "scifact:1282",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:129",
+      "group_id": "scifact:129",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1290",
+      "group_id": "scifact:1290",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1292",
+      "group_id": "scifact:1292",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1298",
+      "group_id": "scifact:1298",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:13",
+      "group_id": "scifact:13",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:130",
+      "group_id": "scifact:130",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1303",
+      "group_id": "scifact:1303",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1316",
+      "group_id": "scifact:1316",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1319",
+      "group_id": "scifact:1319",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:132",
+      "group_id": "scifact:132",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1320",
+      "group_id": "scifact:1320",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:133",
+      "group_id": "scifact:133",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1332",
+      "group_id": "scifact:1332",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1335",
+      "group_id": "scifact:1335",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1336",
+      "group_id": "scifact:1336",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1337",
+      "group_id": "scifact:1337",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1339",
+      "group_id": "scifact:1339",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1344",
+      "group_id": "scifact:1344",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1352",
+      "group_id": "scifact:1352",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1359",
+      "group_id": "scifact:1359",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1362",
+      "group_id": "scifact:1362",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1363",
+      "group_id": "scifact:1363",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1368",
+      "group_id": "scifact:1368",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:137",
+      "group_id": "scifact:137",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1370",
+      "group_id": "scifact:1370",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1379",
+      "group_id": "scifact:1379",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1382",
+      "group_id": "scifact:1382",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:1385",
+      "group_id": "scifact:1385",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:1389",
+      "group_id": "scifact:1389",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:1395",
+      "group_id": "scifact:1395",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:141",
+      "group_id": "scifact:141",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:142",
+      "group_id": "scifact:142",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:143",
+      "group_id": "scifact:143",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:146",
+      "group_id": "scifact:146",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:148",
+      "group_id": "scifact:148",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:163",
+      "group_id": "scifact:163",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:171",
+      "group_id": "scifact:171",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:179",
+      "group_id": "scifact:179",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:180",
+      "group_id": "scifact:180",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:183",
+      "group_id": "scifact:183",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:185",
+      "group_id": "scifact:185",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:198",
+      "group_id": "scifact:198",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:208",
+      "group_id": "scifact:208",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:212",
+      "group_id": "scifact:212",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:213",
+      "group_id": "scifact:213",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:216",
+      "group_id": "scifact:216",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:217",
+      "group_id": "scifact:217",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:218",
+      "group_id": "scifact:218",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:219",
+      "group_id": "scifact:219",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:230",
+      "group_id": "scifact:230",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:232",
+      "group_id": "scifact:232",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:233",
+      "group_id": "scifact:233",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:236",
+      "group_id": "scifact:236",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:237",
+      "group_id": "scifact:237",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:238",
+      "group_id": "scifact:238",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:239",
+      "group_id": "scifact:239",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:248",
+      "group_id": "scifact:248",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:249",
+      "group_id": "scifact:249",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:261",
+      "group_id": "scifact:261",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:268",
+      "group_id": "scifact:268",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:269",
+      "group_id": "scifact:269",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:274",
+      "group_id": "scifact:274",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:275",
+      "group_id": "scifact:275",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:279",
+      "group_id": "scifact:279",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:294",
+      "group_id": "scifact:294",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:295",
+      "group_id": "scifact:295",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:298",
+      "group_id": "scifact:298",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:3",
+      "group_id": "scifact:3",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:300",
+      "group_id": "scifact:300",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:303",
+      "group_id": "scifact:303",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:312",
+      "group_id": "scifact:312",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:314",
+      "group_id": "scifact:314",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:324",
+      "group_id": "scifact:324",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:327",
+      "group_id": "scifact:327",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:338",
+      "group_id": "scifact:338",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:343",
+      "group_id": "scifact:343",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:350",
+      "group_id": "scifact:350",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:354",
+      "group_id": "scifact:354",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:36",
+      "group_id": "scifact:36",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:362",
+      "group_id": "scifact:362",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:380",
+      "group_id": "scifact:380",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:384",
+      "group_id": "scifact:384",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:385",
+      "group_id": "scifact:385",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:386",
+      "group_id": "scifact:386",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:388",
+      "group_id": "scifact:388",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:399",
+      "group_id": "scifact:399",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:410",
+      "group_id": "scifact:410",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:411",
+      "group_id": "scifact:411",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:415",
+      "group_id": "scifact:415",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:42",
+      "group_id": "scifact:42",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:421",
+      "group_id": "scifact:421",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:431",
+      "group_id": "scifact:431",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:436",
+      "group_id": "scifact:436",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:437",
+      "group_id": "scifact:437",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:439",
+      "group_id": "scifact:439",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:440",
+      "group_id": "scifact:440",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:443",
+      "group_id": "scifact:443",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:452",
+      "group_id": "scifact:452",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:475",
+      "group_id": "scifact:475",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:478",
+      "group_id": "scifact:478",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:48",
+      "group_id": "scifact:48",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:49",
+      "group_id": "scifact:49",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:491",
+      "group_id": "scifact:491",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:5",
+      "group_id": "scifact:5",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:50",
+      "group_id": "scifact:50",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:501",
+      "group_id": "scifact:501",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:502",
+      "group_id": "scifact:502",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:507",
+      "group_id": "scifact:507",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:508",
+      "group_id": "scifact:508",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:51",
+      "group_id": "scifact:51",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:513",
+      "group_id": "scifact:513",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:514",
+      "group_id": "scifact:514",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:516",
+      "group_id": "scifact:516",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:517",
+      "group_id": "scifact:517",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:521",
+      "group_id": "scifact:521",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:525",
+      "group_id": "scifact:525",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:527",
+      "group_id": "scifact:527",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:528",
+      "group_id": "scifact:528",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:53",
+      "group_id": "scifact:53",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:532",
+      "group_id": "scifact:532",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:533",
+      "group_id": "scifact:533",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:535",
+      "group_id": "scifact:535",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:536",
+      "group_id": "scifact:536",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:539",
+      "group_id": "scifact:539",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:54",
+      "group_id": "scifact:54",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:540",
+      "group_id": "scifact:540",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:544",
+      "group_id": "scifact:544",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:549",
+      "group_id": "scifact:549",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:551",
+      "group_id": "scifact:551",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:552",
+      "group_id": "scifact:552",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:554",
+      "group_id": "scifact:554",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:56",
+      "group_id": "scifact:56",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:560",
+      "group_id": "scifact:560",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:569",
+      "group_id": "scifact:569",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:57",
+      "group_id": "scifact:57",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:575",
+      "group_id": "scifact:575",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:577",
+      "group_id": "scifact:577",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:578",
+      "group_id": "scifact:578",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:587",
+      "group_id": "scifact:587",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:589",
+      "group_id": "scifact:589",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:593",
+      "group_id": "scifact:593",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:597",
+      "group_id": "scifact:597",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:598",
+      "group_id": "scifact:598",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:613",
+      "group_id": "scifact:613",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:619",
+      "group_id": "scifact:619",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:623",
+      "group_id": "scifact:623",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:628",
+      "group_id": "scifact:628",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:636",
+      "group_id": "scifact:636",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:637",
+      "group_id": "scifact:637",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:641",
+      "group_id": "scifact:641",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:644",
+      "group_id": "scifact:644",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:649",
+      "group_id": "scifact:649",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:659",
+      "group_id": "scifact:659",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:660",
+      "group_id": "scifact:660",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:674",
+      "group_id": "scifact:674",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:684",
+      "group_id": "scifact:684",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:690",
+      "group_id": "scifact:690",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:691",
+      "group_id": "scifact:691",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:692",
+      "group_id": "scifact:692",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:693",
+      "group_id": "scifact:693",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:70",
+      "group_id": "scifact:70",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:700",
+      "group_id": "scifact:700",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:702",
+      "group_id": "scifact:702",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:715",
+      "group_id": "scifact:715",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:716",
+      "group_id": "scifact:716",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:718",
+      "group_id": "scifact:718",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:72",
+      "group_id": "scifact:72",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:721",
+      "group_id": "scifact:721",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:723",
+      "group_id": "scifact:723",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:727",
+      "group_id": "scifact:727",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:728",
+      "group_id": "scifact:728",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:729",
+      "group_id": "scifact:729",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:742",
+      "group_id": "scifact:742",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:743",
+      "group_id": "scifact:743",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:744",
+      "group_id": "scifact:744",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:75",
+      "group_id": "scifact:75",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:756",
+      "group_id": "scifact:756",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:759",
+      "group_id": "scifact:759",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:768",
+      "group_id": "scifact:768",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:770",
+      "group_id": "scifact:770",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:775",
+      "group_id": "scifact:775",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:781",
+      "group_id": "scifact:781",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:783",
+      "group_id": "scifact:783",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:784",
+      "group_id": "scifact:784",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:785",
+      "group_id": "scifact:785",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:793",
+      "group_id": "scifact:793",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:800",
+      "group_id": "scifact:800",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:805",
+      "group_id": "scifact:805",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:808",
+      "group_id": "scifact:808",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:811",
+      "group_id": "scifact:811",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:814",
+      "group_id": "scifact:814",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:820",
+      "group_id": "scifact:820",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:821",
+      "group_id": "scifact:821",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:823",
+      "group_id": "scifact:823",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:830",
+      "group_id": "scifact:830",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:831",
+      "group_id": "scifact:831",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:832",
+      "group_id": "scifact:832",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:834",
+      "group_id": "scifact:834",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:837",
+      "group_id": "scifact:837",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:839",
+      "group_id": "scifact:839",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:845",
+      "group_id": "scifact:845",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:847",
+      "group_id": "scifact:847",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:852",
+      "group_id": "scifact:852",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:859",
+      "group_id": "scifact:859",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:870",
+      "group_id": "scifact:870",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:873",
+      "group_id": "scifact:873",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:879",
+      "group_id": "scifact:879",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:880",
+      "group_id": "scifact:880",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:882",
+      "group_id": "scifact:882",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:887",
+      "group_id": "scifact:887",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:903",
+      "group_id": "scifact:903",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:904",
+      "group_id": "scifact:904",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:907",
+      "group_id": "scifact:907",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:911",
+      "group_id": "scifact:911",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:913",
+      "group_id": "scifact:913",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:914",
+      "group_id": "scifact:914",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:921",
+      "group_id": "scifact:921",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:922",
+      "group_id": "scifact:922",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:936",
+      "group_id": "scifact:936",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:94",
+      "group_id": "scifact:94",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:956",
+      "group_id": "scifact:956",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:957",
+      "group_id": "scifact:957",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:960",
+      "group_id": "scifact:960",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:967",
+      "group_id": "scifact:967",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:971",
+      "group_id": "scifact:971",
+      "partition": "reporting"
+    },
+    {
+      "query_id": "scifact:975",
+      "group_id": "scifact:975",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:982",
+      "group_id": "scifact:982",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:985",
+      "group_id": "scifact:985",
+      "partition": "diagnosis"
+    },
+    {
+      "query_id": "scifact:99",
+      "group_id": "scifact:99",
+      "partition": "calibration"
+    },
+    {
+      "query_id": "scifact:993",
+      "group_id": "scifact:993",
+      "partition": "diagnosis"
+    }
+  ],
+  "counts": {
+    "diagnosis": {
+      "queries": 120,
+      "groups": 120
+    },
+    "calibration": {
+      "queries": 60,
+      "groups": 60
+    },
+    "reporting": {
+      "queries": 120,
+      "groups": 120
+    }
+  }
+}
