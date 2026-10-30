@@ -69,16 +69,18 @@ def score_candidates(model, query, candidates, batch_size, max_length, top_k, ac
 
 def load_model(a):
     import torch
+    from huggingface_hub import snapshot_download
     from sentence_transformers import CrossEncoder
+    require(re.fullmatch(r"[0-9a-f]{40}", a.revision) is not None,
+            "--revision must be a resolved 40-character commit SHA, never main/tag")
     require(a.device != "cuda" or torch.cuda.is_available(), "CUDA unavailable")
+    snapshot = Path(snapshot_download(repo_id=a.model_id, revision=a.revision))
+    require(snapshot.name == a.revision, "Downloaded snapshot revision mismatch")
     # Do not override num_labels: that could replace the pretrained classification head.
-    model = CrossEncoder(a.model_id, revision=a.revision, device=a.device,
+    model = CrossEncoder(str(snapshot), local_files_only=True, device=a.device,
                          max_length=a.max_length, trust_remote_code=False,
-                         model_kwargs={"dtype": torch.float32},
-                         processor_kwargs={"revision": a.revision},
-                         config_kwargs={"revision": a.revision})
+                         model_kwargs={"dtype": torch.float32})
     require(model.num_labels == 1, "Reranker must have exactly one output")
-    require(model.config._commit_hash == a.revision, "Loaded model revision mismatch")
     model.tokenizer.truncation_side = "right"
     return model
 

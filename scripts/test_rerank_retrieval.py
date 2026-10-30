@@ -6,7 +6,7 @@ import tempfile
 import types
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import numpy as np
 
@@ -145,20 +145,38 @@ class RerankerTests(unittest.TestCase):
     def test_model_constructor_pins_revision_without_replacing_head(self):
         args = argparse.Namespace(model_id="fake/model", revision=SHA, device="cpu", max_length=16)
         model = FakeModel()
-        model.config = types.SimpleNamespace(_commit_hash=SHA)
-        with patch.dict("sys.modules", {"sentence_transformers": types.SimpleNamespace(CrossEncoder=lambda *a, **kw: model)}):
-            self.assertIs(load_model(args), model)
+        snapshot = Path("cache") / "snapshots" / SHA
+        download = Mock(return_value=str(snapshot))
         def constructor(*a, **kw):
-            self.assertEqual(kw["revision"], SHA)
-            self.assertEqual(kw["processor_kwargs"]["revision"], SHA)
-            self.assertEqual(kw["config_kwargs"]["revision"], SHA)
+            self.assertEqual(a, (str(snapshot),))
+            self.assertIs(kw["local_files_only"], True)
+            self.assertIs(kw["trust_remote_code"], False)
+            self.assertEqual(kw["model_kwargs"], {"dtype": "float32"})
+            self.assertEqual(kw["device"], "cpu")
+            self.assertEqual(kw["max_length"], 16)
+            self.assertNotIn("revision", kw)
             self.assertNotIn("num_labels", kw)
             return model
-        with patch.dict("sys.modules", {"sentence_transformers": types.SimpleNamespace(CrossEncoder=constructor)}):
-            load_model(args)
+        encoder = Mock(side_effect=constructor)
+        with patch.dict("sys.modules", {
+                "sentence_transformers": types.SimpleNamespace(CrossEncoder=encoder),
+                "huggingface_hub": types.SimpleNamespace(snapshot_download=download)}):
+            self.assertIs(load_model(args), model)
+            download.assert_called_once_with(repo_id="fake/model", revision=SHA)
+            self.assertEqual(model.tokenizer.truncation_side, "right")
             model.num_labels = 2
             with self.assertRaisesRegex(ValueError, "one output"):
                 load_model(args)
+            encoder.reset_mock()
+            download.return_value = str(snapshot.with_name("b" * 40))
+            with self.assertRaisesRegex(ValueError, "snapshot revision mismatch"):
+                load_model(args)
+            encoder.assert_not_called()
+            download.reset_mock()
+            args.revision = "main"
+            with self.assertRaisesRegex(ValueError, "commit SHA"):
+                load_model(args)
+            download.assert_not_called()
 
 
 if __name__ == "__main__":
