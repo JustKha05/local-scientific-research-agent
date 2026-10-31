@@ -12,14 +12,33 @@ Phân biệt thiếu bộ evidence trong pool với có đủ trong pool nhưng 
 câu trả lời đúng hoặc citation được hỗ trợ. `VERIFIED_COMPLETE` không chứng minh
 model tốt hơn. Không gộp điểm QASPER và SciFact.
 
-## 2. Review thủ công diagnosis
+## 2. Xác minh review QASPER diagnosis
 
-Dùng [MANUAL_REVIEW.md](../analysis/baseline_diagnosis_v1/MANUAL_REVIEW.md)
-(60 query/dataset, phân tầng theo bucket, seed 42) và danh sách đầy đủ
-`diagnosis_queries.csv`. Mỗi ví dụ cần category do người review gán, observation,
-bằng chứng cụ thể và proposed fix. Không tự suy ra lexical/semantic/truncation
-hoặc lỗi reader từ metric. Mẫu phân tầng không ước lượng tỷ lệ lỗi quần thể.
-Các tỷ lệ bucket trong báo cáo dùng toàn bộ scored diagnosis.
+Đọc [docs/MANUAL_REVIEW.md](MANUAL_REVIEW.md) và các packet liên kết trong
+`analysis/qasper_review_v1/cases/`: question, gold hợp lệ theo alternative,
+top10 reranker/RRF pool50, toàn bộ pool text/source ranks/positions.
+Mẫu: 20 selection_loss + 10 regression complete-hit + 10 success, **37 unique
+query / 31 paper**, chồng nhóm3, seed42. Xem `selection.json` và `observations.csv`.
+Nhận xét trợ lý và facts tự động đã tách riêng; human labels **0/37, PENDING**.
+Ghi reviewer/date, observation và evidence ID/text, counterexample và nhãn xác minh;
+không tự suy lỗi semantic/truncation/reader từ metric hoặc annotation containment.
+Không dùng mẫu phân tầng để ước lượng tỷ lệ lỗi quần thể.
+
+0/37 có exact duplicate/high lexical overlap top10 theo ngưỡng đã chốt. 11/27
+failure có gold thiếu nằm cạnh hit đã chọn;8/27 có alternative hoàn tất khi thêm
+neighbor không giới hạn. Đây là gold-assisted structural oracle, không có token
+cap/replacement và không phải gain selector. Đặc biệt xem các case annotation
+ambiguity và success đủ một alternative dù chưa đủ union.
+
+Tái lập packet khi cần (chỉ output-dir mới, không ghi đè v1):
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest scripts.test_prepare_qasper_review scripts.test_analyze_baseline_diagnosis -v
+.\.venv\Scripts\python.exe -m scripts.prepare_qasper_review --archive artifacts/artifacts_VERIFIED_COMPLETE_20261031T170355811993Z_1bcc0097.zip --sha256-file artifacts/artifacts_VERIFIED_COMPLETE_20261031T170355811993Z_1bcc0097.sha256.json --output-dir analysis/qasper_review_v2 --seed 42
+```
+
+Mẫu120 query cũ của baseline_v1 vẫn là artifact tham khảo, không có human labels;
+không thay thế review37 theo yêu cầu hiện tại.
 
 ## 3. Kiểm thử hoặc tái lập phân tích offline khi cần
 
@@ -56,11 +75,23 @@ artifact gốc. Không reset/clean, không thay manifest hoặc sửa metadata �
 Output độc lập với benchmark; không ghi đè report nguồn. File `output_hashes.json`
 liệt kê SHA256 đầu ra, `provenance.json` ghi SHA256 từng input và nguồn code/model.
 
-## 4. Quyết định thí nghiệm tiếp theo sau manual review
+## 4. Chỉ một pilot sau human verification và cost checks
 
-Đọc quyết định cập nhật trong [PROGRESS.md](PROGRESS.md). Chỉ thử một ablation
-chọn evidence sau khi kiểm tra ví dụ. Giữ pool, model SHA và ngân sách top10/token
-cố định để tách ảnh hưởng selector khỏi retriever. Không dùng gold trong inference.
-Calibration chỉ dùng aggregate hiện có trong bước này; trước một lần tuning tương
-lai phải chốt protocol. Reporting và test tiếp tục giữ kín.
-Chưa phát triển controller, generation hoặc UI lớn trước khi có chẩn đoán rõ.
+**Neighbor-one-swap**, chưa triển khai/chạy: từ top10 reranker, xét paragraph ±1
+cùng numeric section trong original pool; chọn candidate chưa có theo RRF k60 từ
+source ranks (tie evidence ID), thay đúng rank10 nếu candidate cost ≤ item bị thay.
+Giữ nguyên text units/pool/model SHA, không thêm evidence thứ11, không tăng tổng
+context tokens. Không thêm duplicate penalty/heading rule/2-hop hoặc sweep tham số.
+Gold/review labels không được dùng trong inference. Luật đầy đủ, ví dụ hỗ trợ và
+phản chứng nằm ở [MANUAL_REVIEW](MANUAL_REVIEW.md).
+
+Thiếu tokenizer-specific costs và reader/token budget đã chốt: cần xác định cùng
+cost rule cho baseline và selector trước khi chạy matched-token. Max-length512 của
+cross-encoder không phải context budget reader. Full-union cross-encoder logits
+không có, nhưng pilot dùng top10 và source ranks nên không cần tải/chạy lại model
+để lấy logits đó. Không báo gold-assisted8/27 như cải thiện dự kiến.
+
+Sau khi đủ điều kiện, freeze một protocol trước pilot và báo success regressions
+cùng complete-hit/Recall/MRR; không chỉ xem phần thắng. Reporting/test vẫn giữ kín,
+không phân tích lỗi calibration. Đợt hiện tại dừng ở review và đề xuất, không chạy
+thí nghiệm selector hoặc phát triển controller/generation/UI.

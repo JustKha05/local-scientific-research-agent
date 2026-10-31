@@ -1,0 +1,97 @@
+{
+  "seed": 42,
+  "regression_definition": "reranker complete@10=0 and RRF pool50 complete@10=1",
+  "sampling": "independent random.sample from query-ID sorted populations; RNG reset to seed for each group",
+  "populations": {
+    "selection_loss": 97,
+    "regression_complete": 17,
+    "success": 233
+  },
+  "selected": {
+    "selection_loss": [
+      "qasper:0752d71a0a1f73b3482a888313622ce9e9870d6e",
+      "qasper:07d15501a599bae7eb4a9ead63e9df3d55b3dc35",
+      "qasper:1ed49a8c07ef0ac15cfa6b7decbde6604decbd5b",
+      "qasper:23b2901264bda91045258b5d4120879ae292e950",
+      "qasper:2740e3d7d33173664c1c5ab292c7ec75ff6e0802",
+      "qasper:2c947447d81252397839d58c75ebcc71b34379b5",
+      "qasper:42084c41343e5a6ae58a22e5bfc5ce987b5173de",
+      "qasper:455d4ef8611f62b1361be4f6387b222858bb5e56",
+      "qasper:48088a842f7a433d3290eb45eb0d4c6ab1d8f13c",
+      "qasper:498c0229f831c82a5eb494cdb3547452112a66a0",
+      "qasper:568fb7989a133564d84911e7cb58e4d8748243ef",
+      "qasper:8c48c726bb17a17d70ab29db4d65a93030dd5382",
+      "qasper:af34051bf3e628c1e2a00b110bb84e5f018b419f",
+      "qasper:ba539cab80d25c3e20f39644415ed48b9e4e4185",
+      "qasper:beac555c4aea76c88f19db7cc901fa638765c250",
+      "qasper:c5abe97625b9e1c8de8208e15d59c704a597b88c",
+      "qasper:cb77d6a74065cb05318faf57e7ceca05e126a80d",
+      "qasper:d3aa0449708cc861a51551b128d73e11d62207d2",
+      "qasper:dac087e1328e65ca08f66d8b5307d6624bf3943f",
+      "qasper:f8f4e4a50d2b3fbd193327e79ea32d8d057e1414"
+    ],
+    "regression_complete": [
+      "qasper:06b5272774ec43ee5facfa7111033386f06cf448",
+      "qasper:07d15501a599bae7eb4a9ead63e9df3d55b3dc35",
+      "qasper:1ed49a8c07ef0ac15cfa6b7decbde6604decbd5b",
+      "qasper:2c6b50877133a499502feb79a682f4023ddab63e",
+      "qasper:31d695ba855d821d3e5cdb7bea638c7dbb7c87c7",
+      "qasper:7b4fb6da74e6bd1baea556788a02969134cf0800",
+      "qasper:8d4ac4afbf5b14f412171729ceb5e822afcfa3f4",
+      "qasper:b1cf5739467ba90059add58d11b73d075a11ec86",
+      "qasper:d650101712e36594bd77b45930a990402a455222",
+      "qasper:f8f4e4a50d2b3fbd193327e79ea32d8d057e1414"
+    ],
+    "success": [
+      "qasper:0810b43404686ddfe4ca84783477ae300fdd2ea4",
+      "qasper:21548433abd21346659505296fb0576e78287a74",
+      "qasper:2317ca8d475b01f6632537b95895608dc40c4415",
+      "qasper:2ad4d3d222f5237ed97923640bc8e199409cbe52",
+      "qasper:4625cfba3083346a96e573af5464bc26c34ec943",
+      "qasper:4eaf9787f51cd7cdc45eb85cf223d752328c6ee4",
+      "qasper:521280a87c43fcdf9f577da235e7072a23f0673e",
+      "qasper:b249b60a8c94d0e40d65f1ffdfcac527dab57516",
+      "qasper:c7eb71683f53ab7acffd691a36cad6edc7f5522e",
+      "qasper:c88a846197b72d25e04ec55f00ee3e72f655504c"
+    ]
+  },
+  "unique_queries": 37,
+  "selected_papers": 31,
+  "group_statistics": {
+    "selection_loss": {
+      "queries": 20,
+      "exact_duplicate_cases": 0,
+      "high_overlap_cases": 0,
+      "missing_gold_adjacent_cases": 8,
+      "one_hop_available_cases": 5
+    },
+    "regression_complete": {
+      "queries": 10,
+      "exact_duplicate_cases": 0,
+      "high_overlap_cases": 0,
+      "missing_gold_adjacent_cases": 5,
+      "one_hop_available_cases": 5
+    },
+    "success": {
+      "queries": 10,
+      "exact_duplicate_cases": 0,
+      "high_overlap_cases": 0,
+      "missing_gold_adjacent_cases": 0,
+      "one_hop_available_cases": 0
+    },
+    "unique": {
+      "queries": 37,
+      "exact_duplicate_cases": 0,
+      "high_overlap_cases": 0,
+      "missing_gold_adjacent_cases": 11,
+      "one_hop_available_cases": 8
+    }
+  },
+  "baseline_provenance_sha256": "83ff6efb8a47d9d1128eedd00204be4b59652cedc4bbaaa7a695bef7f18f568b",
+  "baseline_outputs_sha256": "c8a549b0be3151c44e72050670170c272c4d8ae7108d9dfc89c98cf939707ca1",
+  "archive_sha256": "a2aa11be3c93861739d79ebceb3219b3dc50d8b95d1b06ac93aaeb6011051bc0",
+  "script_sha256": "6ff80d0b63d69f17f8117687a517b5e44b81c69e5ada77a4d277b4384fc8e27d",
+  "human_verified_queries": 0,
+  "hypotheses": "Structural adjacency/overlap facts only; not semantic causes or selector performance",
+  "missing_scores": "Cross-encoder logits outside stored top10; tokenizer-specific costs/context budget not logged"
+}

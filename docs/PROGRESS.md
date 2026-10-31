@@ -2,22 +2,33 @@
 
 ## Bước tiếp theo
 
-Review thủ công diagnosis, ưu tiên **97 QASPER selection-loss** và các regression
-so với RRF pool50, rồi chốt một ablation chọn evidence với pool/model/ngân sách
-cố định. Không chạy thêm retrieval/model/GPU hoặc mở reporting trong đợt này.
-Đọc [báo cáo offline](../analysis/baseline_diagnosis_v1/REPORT.md),
-[mẫu review](../analysis/baseline_diagnosis_v1/MANUAL_REVIEW.md) và
-[hướng dẫn tiếp tục](NEXT_STEPS.md). Tài liệu này là nguồn theo dõi tiến độ chính.
+Xác minh nhãn người cho [review QASPER](MANUAL_REVIEW.md): trợ lý đã đọc ví dụ và
+chuẩn bị 20 selection_loss + 10 regression complete-hit + 10 success, **37 query
+unique / 31 paper**, seed42, chồng nhóm3. Human-verified vẫn **0/37, PENDING**.
+Mỗi packet hiển thị question, gold hợp lệ theo alternative, top10 reranker/RRF
+pool50 và full candidate union (text, source rank/score, section/paragraph).
+Không chạy model/retrieval/GPU, không mở reporting hoặc lỗi calibration.
 
-Thí nghiệm đề xuất (chưa chạy): **QASPER selector có phạt trùng lặp và xét ngữ
-cảnh lân cận**, so với top10 cross-encoder hiện tại, trên cùng union BM25+dense
-top50, model SHA và ngân sách evidence/token. Review trước để kiểm tra liệu hai
-tín hiệu này có phù hợp hay không; metric hiện tại không chứng minh nguyên nhân
-là trùng lặp hoặc thiếu ngữ cảnh. Log toàn bộ candidate scores và evidence IDs
-cho ablation; artifact hiện chỉ giữ reranker top10, không đủ để dựng lại score
-của mọi candidate. Nếu cần suy luận model để lấy các scores này, đó là công việc
-tương lai cần được cho phép riêng, không nằm trong phân tích offline này.
-Chọn trước một protocol/ablation, không sweep theo diagnosis, giữ reporting kín.
+Kết quả review: 0/37 có exact duplicate hoặc high word-overlap top10 theo phép
+kiểm tra đã chốt; 11/27 failure unique có gold thiếu nằm cạnh hit, 8/27 có thể đủ
+một alternative khi thêm các neighbor cần thiết không giới hạn. Đây là oracle
+structural dùng gold, chưa xét replacement/token cap, không phải gain dự kiến.
+Các case baseline-list/corpus-source/results có text hỗ trợ tín hiệu lân cận;
+cũng có annotation ambiguity và case cần nhiều hơn một neighbor. Không gán cause
+semantic/truncation/reader từ metric, không coi success thiếu union gold là lỗi.
+
+**Chỉ một pilot được đề xuất, chưa chạy:** Neighbor-one-swap, dùng source RRF rank
+để chọn tối đa một paragraph ±1 cùng section vốn nằm trong pool, thay rank10
+reranker chỉ khi cost không lớn hơn item bị thay. Giữ nguyên pool, model SHA,
+text unit, tối đa10 evidence và không tăng tổng context token. Không thêm penalty
+trùng/heading rule/2-hop hoặc sweep theo mẫu37. Xem luật và phản chứng ở
+[MANUAL_REVIEW](MANUAL_REVIEW.md).
+
+Chưa đủ điều kiện chạy matched-token: thiếu tokenizer-specific context costs và
+reader/token budget đã chốt. Full-union cross-encoder logits cũng thiếu nhưng
+pilot này không cần chúng, vì chỉ dùng top10 sẵn có và BM25/dense ranks đã lưu.
+Không suy luận lại model để bù scores, không báo gain từ gold-assisted8/27.
+Bước ngay bây giờ là human verification và chốt cost rule trước pilot.
 
 ## Phân biệt trạng thái
 
@@ -27,7 +38,7 @@ Chọn trước một protocol/ablation, không sweep theo diagnosis, giữ repo
 | BM25/MiniLM | Runner full split, CPU/CUDA, cache | Dev top10 và top50, 1005 QASPER / 300 SciFact predictions | Report/data/source hashes, diagnosis metrics và denominator | Không chạy lại; embedding mạnh hơn chưa có |
 | Hybrid RRF | Fusion prediction-only | RRF k=60 top10 từ nguồn top10 và từ nguồn top50 | Hash nguồn fusion, diagnosis scores, paired comparisons | Không coi hai độ sâu pool là cùng protocol |
 | Cross-encoder | Pinned snapshot loader; GPU notebook resume A–G | Tesla T4 run, 1005/300 predictions, metrics diagnosis/calibration, backup | ZIP/manifest/config/source/report hashes; diagnosis scores/denominators | Chưa có full-union logits hoặc fine-tuning |
-| Phân tích baseline | Offline script và fixtures | Markdown/CSV, paired bootstrap, danh sách review | Đã chạy cả hai dataset từ artifact local | Manual review 120 ví dụ chưa thực hiện |
+| Phân tích baseline | Offline analysis + review packet scripts/fixtures | Markdown/CSV, paired bootstrap; review37 QASPER với full pool | Trợ lý đọc ví dụ ủng hộ/phản chứng; hashes/diagnosis membership đã kiểm tra | Nhãn người 0/37; chưa chạy selector, mẫu120 cũ vẫn chưa có human labels |
 | Selector/reader/controller | Chưa triển khai phương pháp mới | Chưa có thực nghiệm | Không tuyên bố cải thiện Answer F1/hallucination | Selector mới, reader/generation, oracle reader, adaptive controller |
 | Đánh giá cuối/release | Evaluator có khả năng giữ reporting | Reporting/test chưa mở trong đợt này | Không parse/chấm gold reporting | Freeze phương pháp, held-out evaluation, demo |
 
@@ -159,6 +170,24 @@ hit; không tính CI hoặc phân tích lỗi query calibration. Chỉ 39 scored
 và calibration không thay thế final holdout sau tuning. Không suy ra nguyên nhân
 phân phối/semantic từ sự khác biệt aggregate này.
 
+## Review follow-up — 01/11/2026
+
+HEAD local khi bắt đầu follow-up: `168c64761927e356973b2bb56a5b5997027bd740`.
+HEAD baseline audit ở phần provenance phía trên là snapshot lịch sử, không đổi.
+Đã giữ nguyên `.gitignore` modified và các baseline/artifact local chưa tracked;
+không sửa notebook, report, manifest, model/config hoặc output baseline_v1.
+
+[MANUAL_REVIEW.md](MANUAL_REVIEW.md) là tổng hợp nhận xét trợ lý + facts tự động;
+nhãn do người xác minh được tách riêng và đều PENDING. Review packet tại
+`analysis/qasper_review_v1/`: 37 case Markdown, observations.csv, selection.json,
+output_hashes.json. Sampling regression = complete-hit0 của reranker và1 của RRF
+pool50, không chọn lại theo metric sau khi xem text. 3 query chồng hai nhóm;
+thống kê unique chỉ đếm một lần. Mẫu này không ước lượng tỷ lệ toàn dataset.
+
+Đã pass 10 tests (5 mới về chọn mẫu/metadata adjacency/optional alternative/
+ngoài-pool/duplicates, cùng5 baseline guards). Chỉ diagnosis được đưa vào packets;
+full-gold chỉ hash bytes không parse. Các output baseline cũ còn nguyên SHA256.
+
 ## Output, kiểm thử và việc còn lại
 
 `analysis/baseline_diagnosis_v1/` gồm `REPORT.md`, `aggregate_metrics.csv`,
@@ -172,7 +201,7 @@ skip/SciFact semantics, paper bootstrap query macro, denominator và archive-has
 gold-reporting parsing guards. Đã chạy phân tích offline cả hai dataset thành công.
 Không chạy retrieval/model/GPU, không tạo lại manifest, không mở reporting.
 
-Còn lại: review ví dụ, kiểm tra giả thuyết selector, chốt một ablation và budget;
+Còn lại: human verification của review37, chốt tokenizer/cost rule trước pilot Neighbor-one-swap;
 sau đó mới cân nhắc thực nghiệm model/selector mới. Chưa có kết luận Answer F1,
 reader correctness, hallucination, novelty hoặc cải thiện final test. Không so
 latency chéo hardware; rerank/fusion timings không bao gồm source retrieval.
