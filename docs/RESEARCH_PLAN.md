@@ -5,17 +5,29 @@ Xây dựng Scientific QA có kiểm tra bằng chứng, quyết định trả l
 
 QASPER là tác vụ chính: QA trong một bài báo đã biết. SciFact là tác vụ mở rộng: truy xuất và xác minh claim trên corpus. Hai tác vụ có evaluator riêng; không gộp điểm hoặc coi SciFact thiếu rationale là QASPER unanswerable.
 
-## 2. Hiện trạng đã kiểm tra trên GitHub
-- main chỉ có khởi tạo và check_environment; code dữ liệu/BM25/dense nằm trên feat/dense-retrieval tại d475cf83d623f3f466e62d577db819132763abe6.
-- Có chuẩn bị/validate dữ liệu, BM25, MiniLM, cache embedding, smoke evaluators và mẫu phân tích lỗi BM25.
-- Smoke chọn 30 query mỗi dataset trên TRAIN. Không phải benchmark cuối.
-- evaluate_bm25_smoke.py chấm cả BM25 và dense qua --report-dir; tên file chưa phản ánh tính tổng quát.
-- QASPER retrieval theo paper; SciFact retrieval theo câu toàn corpus.
-- QASPER recall lấy giá trị tốt nhất giữa annotation hợp lệ; MRR dùng union; loại unanswerable, figure/table và unmatched khỏi phép đo này.
-- SciFact rationale evaluator đo union sentence recall và complete rationale hit; không phải official label/evidence scoring.
-- run_dense_smoke.py hiện cố định CPU/MiniLM/top-10/train. Đổi JSON sang cuda sẽ bị từ chối; chưa có hỗ trợ GPU trong runner này.
-- inspect_bm25_errors.py hiện cố định bm25_smoke/train.
-- Chưa xác nhận kết quả full, reranker, answer generation hay controller từ code hiện có. Kết quả chạy trên máy người dùng cần được lưu cùng provenance.
+## 2. Hiện trạng kiểm tra local — 01/11/2026
+
+Nguồn theo dõi chính: [PROGRESS.md](PROGRESS.md); nhánh hiện tại
+`feat/dev-retrieval-benchmark`, HEAD kiểm tra `83a5ee39cdb839400f040dd503fcbaff48c11576`.
+Không suy diễn trạng thái các nhánh remote từ kiểm tra local này.
+
+- Đã triển khai: data preparation/validation, full-dev runner cpu/cuda, manifest
+  diagnosis/calibration/reporting, evaluator, BM25, dense MiniLM, RRF và cross-encoder
+  ghim revision; notebook resume/provenance/backup và script phân tích offline.
+- Artifact đã có: full-dev predictions QASPER 1005 query, SciFact 300 query;
+  BM25/dense top10 và top50, hai biến thể RRF top10, reranker top10.
+  Diagnosis/calibration metrics và diagnosis exports đã có; reporting giữ kín.
+- Reranker chạy Colab Tesla T4, source `1d3ab1035545a867be1c649be17ad22565303e1f`,
+  model SHA `233902d25c440f23af6f7d6e94d2946bac0bee0a`; archive local có SHA256
+  được xác minh lại. Nhãn `VERIFIED_COMPLETE` chỉ xác nhận hoàn tất/toàn vẹn.
+- Phân tích offline kiểm tra hashes, manifest/query coverage và denominator;
+  chấm riêng diagnosis, bootstrap paired theo paper/claim. Calibration chỉ lấy
+  aggregate sẵn có. Xem số liệu và giới hạn trong PROGRESS/báo cáo offline.
+- Semantics giữ nguyên: QASPER best recall theo annotation hợp lệ, normalized
+  duplicate text tương đương nhưng vẫn chiếm rank; SciFact recall dùng union,
+  complete hit chỉ cần một rationale. Không phải official QA/verification scores.
+- Chưa làm: manual review hoàn chỉnh, embedding mạnh hơn, selector evidence mới,
+  reader/generation, oracle reader, controller, final reporting/test, demo.
 
 ## 3. Câu hỏi nghiên cứu
 RQ1: Khi cùng retriever/reader và ngân sách token, chọn bằng chứng có xét ngữ cảnh và trùng lặp có cải thiện độ đầy đủ bằng chứng và Answer F1?
@@ -27,7 +39,7 @@ Chỉ triển khai controller sau khi phân tích lỗi cho thấy thiếu bằn
 ## 4. Các giai đoạn và điều kiện hoàn thành
 | Giai đoạn | Việc thực hiện | Điều kiện chuyển bước |
 |---|---|---|
-| A. Chốt baseline hiện có | Validate, tái chấm smoke, lưu revision/hash/config, so sánh cùng query | Hai retriever có report hợp lệ; nêu rõ scored/skipped |
+| A. Chốt baseline hiện có | Kiểm tra artifact full-dev đã có, revision/hash/config và so sánh cùng query | Hai retriever có report hợp lệ; nêu rõ scored/skipped |
 | B. Benchmark dev tổng quát | Runner/evaluator hỗ trợ split, dataset, model, device, top-k, output; không phá smoke | Full dev chạy được; phạm vi paper/corpus rõ; kiểm tra ID, rank và cache |
 | C. Chẩn đoán | Review 50–100 trường hợp từ dev diagnosis, gồm miss/partial/success và nhiều loại câu hỏi | Có bảng tỷ lệ lỗi, ví dụ và quyết định điểm nghẽn |
 | D. Baseline mạnh | BM25, MiniLM, một embedding mạnh hơn, hybrid RRF, hybrid + cross-encoder | So sánh cùng split, candidate pool, context budget và reader |
@@ -35,7 +47,10 @@ Chỉ triển khai controller sau khi phân tích lỗi cho thấy thiếu bằn
 | F. Đánh giá cuối | QASPER test được giữ kín; SciFact dev reporting holdout hoặc chấm test chính thức nếu có | Đóng băng cấu hình; CI; phân tích lỗi và chi phí |
 | G. Sản phẩm/release | API/demo mở nguồn bằng chứng, log, hướng dẫn chạy GPU/local, báo cáo | Một lệnh tái lập benchmark; ví dụ thành công và thất bại |
 
-B là công việc lập trình tiếp theo; hiện chưa có CLI full-dev. Không dùng --split dev hay --device cuda với các smoke script hiện tại.
+B và phần BM25/MiniLM/RRF/reranker của D đã có code và artifact full-dev.
+C hiện có phân tích định lượng offline; manual review và quyết định ablation còn lại.
+Embedding mạnh hơn, reader và so sánh ngân sách token ở D chưa hoàn tất.
+Các giai đoạn E–G vẫn là kế hoạch, chưa phải kết quả đã thực hiện.
 
 ## 5. Giao thức tránh leakage
 - Train: fine-tune, hard-negative mining và xây tập huấn luyện controller.
@@ -83,7 +98,11 @@ Tách requirements CPU/GPU khi triển khai; kiểm tra torch CUDA thực tế. 
 Không chạy lại smoke CPU để giả lập benchmark GPU. So latency chỉ khi cùng hardware/protocol.
 
 ## 10. Bước ngay bây giờ
-Xem docs/NEXT_STEPS.md. Chốt smoke đang có trước; sau đó triển khai full-dev benchmark và mẫu phân tích lỗi. Chưa fine-tune, thêm multi-agent hoặc làm UI lớn trước khi có chẩn đoán.
+
+Xem [PROGRESS.md](PROGRESS.md) và [NEXT_STEPS.md](NEXT_STEPS.md). Review baseline
+và ví dụ diagnosis trước khi thử một evidence-selection ablation. Không chạy lại
+retrieval/model/GPU, không mở reporting trong đợt phân tích này. Chưa fine-tune,
+thêm multi-agent hoặc làm UI lớn trước khi có chẩn đoán.
 
 Đóng góp mục tiêu: phương pháp và bằng chứng thực nghiệm về cách dùng context/tính toán hiệu quả để trả lời có căn cứ. Nếu không thắng baseline, công bố giới hạn và kết quả âm trung thực; không đổi test thành tập tuning.
 

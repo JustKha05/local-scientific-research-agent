@@ -1,7 +1,7 @@
 # Benchmark retrieval toàn dev
 
 Các lệnh dưới đây dành cho runner mới; không thêm tham số vào smoke script.
-Smoke và kết quả cũ được giữ nguyên. Benchmark chưa được chạy trên dữ liệu thật trong lần triển khai này.
+Smoke và kết quả cũ được giữ nguyên. Benchmark full-dev đã có artifact local; xem [PROGRESS.md](PROGRESS.md) để biết trạng thái đã kiểm tra. Các lệnh bên dưới là hướng dẫn tái lập, không phải bước tiếp theo cần chạy.
 
 Đã lưu hai manifest trong `configs/dev_qasper_seed42.json` và `configs/dev_scifact_seed42.json`
 từ query/paper ID processed hiện tại, không đọc gold. Giữ nguyên và dùng lại:
