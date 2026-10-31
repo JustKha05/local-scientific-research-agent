@@ -20,37 +20,11 @@ source top 10 bị từ chối nếu scope còn đủ candidate. Dùng hai thư 
 Nếu thiếu, tạo report top 50 mới bằng retrieval runner theo giao thức hiện tại;
 không sửa report top 10 và không đổi manifest.
 
-Revision phải là commit SHA 40 ký tự. Resolve **một lần trước lượt chạy**, lưu lại,
-rồi dùng cùng SHA cho cả hai dataset. Không resolve lại `main` giữa hai lượt.
-Ví dụ PowerShell từ root repo (truy vấn metadata không tải weights):
-
-```powershell
-$python = '.\.venv\Scripts\python.exe'
-& $python -m unittest scripts.test_rerank_retrieval scripts.test_fuse_retrieval_rrf -v
-
-# Chỉ chạy resolve khi bắt đầu một cấu hình mới; file tồn tại sẽ báo lỗi.
-@'
-from huggingface_hub import model_info
-from scripts.benchmark_common import write_new
-m = "cross-encoder/ms-marco-MiniLM-L6-v2"
-write_new("evaluation/reranker_model_v1.json", {
-    "model_id": m, "revision": model_info(m, revision="main").sha,
-    "device": "cuda", "batch_size": 16, "max_length": 512, "top_k": 10})
-'@ | & $python -
-if ($LASTEXITCODE -ne 0) { throw "Resolve failed; reuse the existing config or choose a new file" }
-$cfg = Get-Content evaluation/reranker_model_v1.json -Raw | ConvertFrom-Json
-foreach ($dataset in @('qasper', 'scifact')) {
-    & $python -m scripts.rerank_retrieval --dataset $dataset --bm25-dir evaluation/reports/dev_bm25_top50_v1 --dense-dir evaluation/reports/dev_dense_top50_v1 --report-dir evaluation/reports/dev_cross_encoder_v1 --model-id $cfg.model_id --revision $cfg.revision --device $cfg.device --batch-size $cfg.batch_size --max-length $cfg.max_length --top-k $cfg.top_k
-    if ($LASTEXITCODE -ne 0) { throw "Reranking failed" }
-    & $python -m scripts.evaluate_retrieval_benchmark --dataset $dataset --split dev --query-manifest "configs/dev_${dataset}_seed42.json" --report-dir evaluation/reports/dev_cross_encoder_v1
-    if ($LASTEXITCODE -ne 0) { throw "Evaluation failed" }
-}
-```
-
-CPU: lưu `device=cpu` khi tạo cấu hình mới. CUDA được kiểm tra trước model load;
-không fallback CPU ngầm. CLI không thay head thành một output: model nhiều output
-bị từ chối. Shape score phải `(N,)` hoặc `(N,1)` và mọi score hữu hạn.
-Evaluator cần top-k >= 10. Không dùng `--include-reporting`.
+Model của phiên này được ghim ở SHA `233902d25c440f23af6f7d6e94d2946bac0bee0a`.
+Không resolve `main`, đổi SHA hoặc fallback CPU. Loader dùng pinned
+`snapshot_download` rồi mở snapshot local, không thay classification head.
+Source ghim theo commit `1d3ab1035545a867be1c649be17ad22565303e1f`;
+notebook ghi commit và SHA256 từng file. Không tự commit/push.
 
 Payload evidence được giữ nguyên, chỉ thay rank/score. Report lưu config model và
 tokenizer cùng SHA, tokenizer class, float32, versions, hardware, hash hai file
@@ -124,20 +98,50 @@ cầu xác thực trong giao diện Colab, mount một lần ở Colab trên cù
 quay lại VSCode. Sửa `INPUT_ZIP`, `DRIVE_OUTPUT` trong notebook nếu cần.
 Không dùng widget upload/download.
 
-Notebook giải nén vào thư mục mới, kiểm tra CUDA, cài requirements bằng Python
-của kernel, resolve SHA bằng `huggingface_hub.model_info`, lưu config lên Drive
-**trước** khi chạy. Nó gọi `scripts.rerank_retrieval` rồi evaluator mặc định cho
-QASPER/SciFact. Không chạy lại retrieval và không mở reporting. Output ZIP trên
-Drive chứa report mới, config/SHA, manifest nguyên bản và source snapshot để
-tái lập; không gộp report cũ. Sao lưu sau từng dataset, kể cả khi evaluator lỗi.
+## Chạy notebook A → G
 
-Colab terminal tương đương sau giải nén/cài dependencies và resolve config:
+**Lần đầu:** chọn kernel Colab GPU, chạy A để mount Drive, chuẩn bị input ZIP
+đúng layout trên. Chỉ khi tạo thí nghiệm mới, đặt `CREATE_NEW=True`, `NEW_WORK`
+và `NEW_DRIVE_RUN` bằng đường dẫn rõ ràng chưa tồn tại. B ghi config với SHA
+cố định. Run All không tự tạo RUN_ID/workspace theo thời gian. C đồng bộ đúng
+commit; D cài dependencies, kiểm tra CUDA và fixture tests (model giả).
+Không chạy BM25/dense/RRF, không dùng `--include-reporting`.
 
-```bash
-python -m scripts.rerank_retrieval --dataset qasper --bm25-dir evaluation/reports/dev_bm25_top50_v1 --dense-dir evaluation/reports/dev_dense_top50_v1 --report-dir evaluation/reports/dev_cross_encoder_v1 --model-id cross-encoder/ms-marco-MiniLM-L6-v2 --revision "$MODEL_SHA" --device cuda --batch-size 16 --max-length 512 --top-k 10
-python -m scripts.evaluate_retrieval_benchmark --dataset qasper --query-manifest configs/dev_qasper_seed42.json --report-dir evaluation/reports/dev_cross_encoder_v1
-# Lặp lại hai lệnh với --dataset scifact và manifest dev_scifact_seed42.json.
-```
+**Tiếp tục phiên:** để `CREATE_NEW=False`. A đã chọn rõ config local của phiên
+`20261031T164343Z_05af25c1`; không tự chuyển sang phiên khác nếu thiếu config.
+B liệt kê config local và Drive;
+nếu có nhiều đường dẫn, đặt `CONFIG_SELECTION` bằng đúng một đường dẫn rồi
+chạy lại B. Phiên đã biết:
+`/content/reranker_20261031T164343Z_05af25c1/reranker_run_config.json`.
+Output cũ chỉ xác nhận QASPER reranking 1005 query, exit 0; chưa xác nhận
+evaluation QASPER hoặc SciFact. B kiểm tra file thực tế, không tin output cũ.
 
-`MODEL_SHA` phải lấy từ config đã lưu; không đặt bằng `main`. Test fixture chỉ dùng
-model giả và không xác nhận chất lượng benchmark hay hoạt động CUDA thực tế.
+Nếu mất runtime, chọn config Drive, đặt `RESTORE_ZIP` tới archive G và
+`RESTORE_SHA256` từ sidecar `.sha256.json`. B kiểm tra hash ZIP, manifest,
+config và từng file trước khi khôi phục. Archive cũ thiếu dữ liệu/source gốc
+không đủ để resume: cần khôi phục đầy đủ workspace và đúng source đã tạo report.
+Không xóa report hợp lệ để chạy lại.
+
+Chạy tiếp C, D, E, F, G. C giữ nguyên byte source cũ trước khi đồng bộ.
+E kiểm tra config, data/manifest, source reports, metadata và script hashes.
+Hash script của report cũ phải khớp source đã giữ hoặc source ghim; không có
+source tương ứng thì dừng. Sau kiểm tra đầu, seal SHA256 khóa report/config/input
+để phát hiện thay đổi ở lần resume sau. Report hợp lệ đã có được giữ;
+chỉ thiếu retrieval mới rerank. F chỉ gọi CLI evaluation khi thiếu metrics/diagnosis;
+file đã có được kiểm tra nội dung bằng evaluator ghim, giới hạn diagnosis/calibration.
+Output thiếu dựng trong staging; file hỏng hoặc xung đột gây lỗi, không ghi đè.
+
+Mọi subprocess chạy với `cwd=WORK`, stream stdout/stderr và lưu log riêng trong
+`resume_logs/`; traceback gốc tiến trình con hiện trong output và log.
+Nếu E/F lỗi, sửa nguyên nhân rồi chạy lại; có thể chạy G riêng để lưu phần dở dang.
+Lỗi được lưu riêng thành `FAILED_*.json` trên Drive. G dùng tên archive có timestamp
+và suffix duy nhất, kiểm tra nội dung ZIP và lưu SHA256. Chỉ `VERIFIED_COMPLETE`
+xác nhận cả hai dataset đã qua kiểm tra; `FAILED_OR_INCOMPLETE` là backup dở dang,
+cell vẫn báo lỗi. ZIP chưa có sidecar hash hợp lệ không được dùng để restore.
+
+**File gửi sau khi xong:** archive `artifacts_VERIFIED_COMPLETE_*.zip` mới nhất,
+sidecar `.sha256.json` cùng tên và bảng trạng thái F. Archive gồm retrieval,
+metrics development, diagnosis, config/SHA, source/provenance, manifest,
+input data/source reports và logs để tái lập. Nếu lỗi, gửi backup
+`FAILED_OR_INCOMPLETE` nếu tạo được, `FAILED_*.json` và log liên quan.
+Diagnosis chứa gold; chỉ chia sẻ trong phạm vi nghiên cứu được phép.
